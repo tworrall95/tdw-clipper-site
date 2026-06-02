@@ -1,33 +1,150 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta name="google-site-verification" content="SeUV1PnmjOY-H96xLdCSKq9QppajpjeclXoKgHD1e8w" />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>tdw-clipper</title>
+<!-- TikTok URL ownership verification (Content Posting API app review) -->
+<meta name="tiktok-developers-site-verification" content="3rCp4DR78pTKYOI57pC30V5cAC6V1Hux" />
+<title>TDW Media — Viral Stream Highlights</title>
+<meta name="description" content="TDW Media turns a creator's own livestreams into short-form vertical clips and publishes the approved clips to the creator's own connected accounts." />
+<link rel="icon" href="tdw-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-  :root { color-scheme: light dark; }
-  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-         line-height:1.6; background:#0b0e11; color:#e6eaef; }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 72px 24px; }
-  h1 { font-size: 34px; letter-spacing:-0.02em; margin:0 0 8px; }
-  .muted { color:#8a95a3; }
-  a { color:#2dd4bf; }
-  .card { border:1px solid #2a313a; border-radius:10px; padding:20px; margin-top:28px; background:#14181d; }
+  :root {
+    --bg:#0b0e11; --surface:#14181d; --ink:#e6eaef; --muted:#8a95a3; --hairline:#222932;
+    --red:#FF2D40; --green:#3BE85B; --purple:#9D4EFF;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink); line-height:1.6;
+    font-family:"Geist", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a { color:var(--green); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .wrap { max-width:880px; margin:0 auto; padding:0 24px; }
+  /* neon brand rule */
+  .rule { height:2px; background:linear-gradient(90deg,var(--red),var(--green) 50%,var(--purple));
+          box-shadow:0 0 14px -2px rgba(59,232,91,.55); }
+
+  header { padding:18px 0; }
+  .brandrow { display:flex; align-items:center; gap:12px; }
+  .brandrow img { width:44px; height:44px; border-radius:50%;
+                  box-shadow:0 0 18px -2px rgba(59,232,91,.5); }
+  .brandname { font-weight:800; letter-spacing:-0.02em; font-size:18px;
+               background:linear-gradient(90deg,var(--red),var(--ink),var(--green));
+               -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .brandsub { font-family:"Geist Mono", monospace; font-size:9px; text-transform:uppercase;
+              letter-spacing:.24em; color:rgba(59,232,91,.85); margin-top:2px; }
+
+  .hero { text-align:center; padding:64px 0 32px; }
+  .hero img.banner { width:100%; max-width:560px; border-radius:14px;
+                     box-shadow:0 0 40px -10px rgba(157,78,255,.45); ring:1px; }
+  h1 { font-size:40px; line-height:1.1; letter-spacing:-0.03em; margin:28px 0 10px; font-weight:800; }
+  h1 .accent { background:linear-gradient(90deg,var(--red),var(--green) 55%,var(--purple));
+               -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lede { color:var(--muted); font-size:18px; max-width:620px; margin:0 auto; }
+
+  .cta { display:inline-flex; align-items:center; gap:8px; margin-top:30px;
+         background:var(--green); color:#04140a; font-weight:700; font-size:15px;
+         padding:12px 22px; border-radius:10px; box-shadow:0 0 22px -6px var(--green);
+         transition:filter .15s ease; }
+  .cta:hover { filter:brightness(1.08); text-decoration:none; }
+  .cta.ghost { background:transparent; color:var(--muted); border:1px solid var(--hairline);
+               box-shadow:none; font-weight:500; margin-left:10px; }
+  .cta.ghost:hover { color:var(--ink); border-color:var(--green); }
+
+  .platforms { display:flex; justify-content:center; gap:22px; margin-top:34px;
+               font-size:13px; color:var(--muted); }
+  .platforms span { display:inline-flex; align-items:center; gap:7px; }
+  .dot { width:9px; height:9px; border-radius:50%; }
+
+  section.how { padding:48px 0; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:22px; }
+  .card { background:var(--surface); border:1px solid var(--hairline); border-radius:12px; padding:20px; }
+  .card .n { font-family:"Geist Mono", monospace; font-size:12px; color:var(--green); }
+  .card h3 { margin:8px 0 6px; font-size:16px; }
+  .card p { margin:0; color:var(--muted); font-size:14px; }
+
+  footer { border-top:1px solid var(--hairline); margin-top:24px; padding:28px 0 56px;
+           color:var(--muted); font-size:13px; display:flex; flex-wrap:wrap;
+           justify-content:space-between; gap:12px; }
+  footer a { color:var(--muted); }
+  footer a:hover { color:var(--green); }
+
+  @media (max-width:680px) {
+    h1 { font-size:30px; }
+    .grid { grid-template-columns:1fr; }
+    footer { flex-direction:column; }
+  }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>tdw-clipper</h1>
-    <p class="muted">By Tdw Media</p>
-    <p>tdw-clipper is a self-hosted tool a creator runs to turn their own livestreams into
-      short-form vertical clips. The creator reviews and approves each clip, and the app then
-      uploads the approved clips to the creator's own connected social accounts (such as their
-      YouTube channel). Nothing is published without a manual review step.</p>
-    <div class="card">
-      <p><strong>Privacy:</strong> <a href="./privacy.html">Privacy Policy</a></p>
-      <p class="muted">Contact: tworrall1995@gmail.com</p>
+<div class="rule"></div>
+
+<header>
+  <div class="wrap brandrow">
+    <img src="tdw-logo.png" alt="TDW Media" />
+    <div>
+      <div class="brandname">TDW MEDIA</div>
+      <div class="brandsub">Viral Stream Highlights</div>
     </div>
   </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <img class="banner" src="tdw-banner.png" alt="TDW Media — Viral Stream Highlights" />
+    <h1>Your stream, cut into <span class="accent">clips that travel.</span></h1>
+    <p class="lede">
+      TDW Media turns a creator's own livestreams into short-form vertical clips — detected,
+      captioned, and rendered automatically — then publishes the clips you approve to your own
+      connected accounts on YouTube, TikTok, and X.
+    </p>
+    <div>
+      <a class="cta" href="/app/">Operator Login →</a>
+      <a class="cta ghost" href="mailto:tworrall1995@gmail.com">Contact</a>
+    </div>
+    <div class="platforms">
+      <span><span class="dot" style="background:#9146FF;box-shadow:0 0 7px #9146FF"></span>Twitch</span>
+      <span><span class="dot" style="background:#53FC18;box-shadow:0 0 7px #53FC18"></span>Kick</span>
+      <span><span class="dot" style="background:#FF0000;box-shadow:0 0 7px #FF0000"></span>YouTube</span>
+    </div>
+  </div>
+
+  <section class="how">
+    <div class="rule" style="opacity:.4"></div>
+    <div class="grid">
+      <div class="card">
+        <div class="n">01 — Capture</div>
+        <h3>From your own streams</h3>
+        <p>TDW Media ingests the creator's own broadcast or VOD and finds the moments worth clipping.</p>
+      </div>
+      <div class="card">
+        <div class="n">02 — Review</div>
+        <h3>You approve every clip</h3>
+        <p>Each clip is rendered vertical with captions and lands in a review queue. Nothing posts
+           without the operator's explicit approval.</p>
+      </div>
+      <div class="card">
+        <div class="n">03 — Publish</div>
+        <h3>To your own accounts</h3>
+        <p>Approved clips publish to the creator's own connected YouTube, TikTok, and X accounts,
+           via each platform's official API. Disconnect any account at any time.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div>© 2026 TDW Media · Viral Stream Highlights</div>
+  <div>
+    <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+    <a href="terms.html">Terms of Service</a> &nbsp;·&nbsp;
+    <a href="mailto:tworrall1995@gmail.com">tworrall1995@gmail.com</a>
+  </div>
+</footer>
 </body>
 </html>
